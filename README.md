@@ -11,3 +11,10 @@ git init
 npm run dev
 npm run serve
 ```
+
+
+## Docker
+```
+docker build -t app-test .
+docker run -d  -p 8081:8081 --name app-test app-test
+```
