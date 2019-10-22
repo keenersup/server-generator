@@ -18,3 +18,10 @@ npm run serve
 docker build -t app-test .
 docker run -d  -p 8081:8081 --name app-test app-test
 ```
+
+## docker-compose
+```
+docker-compose up -d
+#rebuild
+docker-compose up --build -d
+```

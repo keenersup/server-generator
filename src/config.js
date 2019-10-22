@@ -2,8 +2,7 @@ export const {
   NODE_ENV
 } = process.env
 
-//todo change 'development' to 'production'
-export const IN_PROD = NODE_ENV === 'development'
+export const IN_PROD = NODE_ENV === 'production'
 
 /*
 const {

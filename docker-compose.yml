@@ -1,0 +1,32 @@
+version: '3'
+services:
+  node-server:
+    container_name: node-server
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./src:/server/src
+    ports:
+      - ${SERVER_PORT}:8081
+    restart: always
+    networks:
+      - backend
+
+  mongodb:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+    restart: always
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mongodb:
