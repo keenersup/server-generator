@@ -1,6 +1,10 @@
-import { ApolloServer, gql } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
+import path from "path"
 import { mergeResolvers, mergeTypes, fileLoader } from 'merge-graphql-schemas'
-import path from "path";
+import { schemaDirectives } from "./directives"
+import { dbConnect } from "./utils/dbConnect"
+import { models } from "./models"
+
 
 import { IN_PROD } from "./config";
 
@@ -9,13 +13,15 @@ import { IN_PROD } from "./config";
   const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')))
 
   const server = new ApolloServer({
+/*
     cors: {
-      // origin: `${REACT_CLIENT_ADDRESS}:${REACT_CLIENT_PORT}`,
+      origin: `${REACT_CLIENT_ADDRESS}:${REACT_CLIENT_PORT}`,
       credentials: true,
     },
+*/
     typeDefs,
     resolvers,
-    // schemaDirectives,
+    schemaDirectives,
     playground: IN_PROD ? false : {
       settings: {
         'request.credentials': 'include',
@@ -25,17 +31,18 @@ import { IN_PROD } from "./config";
       // const user = await addUser(req) || ''
       return {
         req,
-        // models,
+        models,
         // user,
       }
     }
   })
 
-// const server = new ApolloServer({ typeDefs, resolvers });
-
-
-// The `listen` method launches a web server.
-  server.listen({ port: process.env.SERVER_PORT }).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
-  })
+  try {
+    server.listen({ port: process.env.SERVER_PORT }).then(({ url }) => {
+      console.log(`🚀  Server ready at ${url}`)
+    })
+    dbConnect()
+  } catch (err) {
+    console.error(`server error: ${err}`)
+  }
 })()

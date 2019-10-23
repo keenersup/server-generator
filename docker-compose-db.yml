@@ -1,22 +1,5 @@
-version: '3'
+version: '3.6'
 services:
-  node-server:
-    container_name: node-server
-    build: .
-    env_file:
-      - .env
-    environment:
-      MONGODB_HOST: 'mongodb'
-    volumes:
-      - ./src:/server/src
-    ports:
-      - ${SERVER_PORT}:8081
-    command:
-      - npm run dev
-    restart: always
-    networks:
-      - backend
-
   mongodb:
     container_name: mongodb
     image: mongo
@@ -61,6 +44,5 @@ services:
 networks:
   backend:
     driver: bridge
-
 volumes:
   mongodb:

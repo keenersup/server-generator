@@ -1,5 +1,13 @@
 export const {
-  NODE_ENV
+  NODE_ENV,
+  MONGO_ROOT_USER,
+  MONGO_ROOT_PASSWORD,
+  MONGO_HOST,
+  MONGO_PORT,
+  MONGODB_USER,
+  MONGODB_PASSWORD,
+  MONGODB_DATABASE,
+
 } = process.env
 
 export const IN_PROD = NODE_ENV === 'production'

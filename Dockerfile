@@ -9,4 +9,4 @@ WORKDIR /server
 ENV SERVER_PORT=8081
 EXPOSE 8081
 
-CMD ["npm","run","dev"]
+CMD ["npm","run","serve"]
